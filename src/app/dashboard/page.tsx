@@ -1,10 +1,21 @@
-import { Button } from '@/components/ui/button'
-import React from 'react'
+import { typesenseClient } from "@/lib/typesense-client";
+import { Payment, columns } from "./columns";
+import { DataTable } from "./data-table";
+import { CollectionSchema } from "typesense/lib/Typesense/Collection";
+import Header from "./header";
 
-export default function DashboardPage() {
+async function getData(): Promise<CollectionSchema[]> {
+  const collections = await typesenseClient.collections().retrieve();
+
+  return collections;
+}
+export default async function DashboardPage() {
+  const data = await getData();
+
   return (
     <div>
-        <Button>Click me</Button>
+      <Header></Header>
+      <DataTable columns={columns} data={data} />
     </div>
-  )
+  );
 }

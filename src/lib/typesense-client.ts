@@ -1,6 +1,6 @@
 import { Client } from "typesense";
 
-export const client = new Client({
+export const typesenseClient = new Client({
   nodes: [
     {
       host: process.env.NEXT_PUBLIC_TYPESENSE_HOST as string,
