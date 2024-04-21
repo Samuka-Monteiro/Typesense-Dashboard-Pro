@@ -3,17 +3,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/app/DataTableColumnHeader";
 import { CollectionAliasSchema } from "typesense/lib/Typesense/Aliases";
-import { Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import Link from "next/link";
-import { typesenseClient } from "@/lib/typesense-client";
-import { toast } from "sonner";
+import { DeleteDialog } from "../delete-dialog";
 
 export const columns: ColumnDef<CollectionAliasSchema>[] = [
   {
@@ -45,32 +36,7 @@ export const columns: ColumnDef<CollectionAliasSchema>[] = [
     cell: ({ row }) => {
       const alias = row.original;
 
-      return (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() =>
-                  toast.promise(typesenseClient.aliases(alias.name).delete(), {
-                    loading: "Loading...",
-                    success: (data) => {
-                      return `Alias has been deleted`;
-                    },
-                    error: "Error",
-                  })
-                }
-              >
-                <Trash className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Delete alias</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      );
+      return <DeleteDialog name={alias.name} queryKey={["aliases"]} entity="aliases" />;
     },
   },
 ];

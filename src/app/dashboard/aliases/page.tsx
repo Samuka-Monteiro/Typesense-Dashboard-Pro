@@ -1,23 +1,9 @@
-import { typesenseClient } from "@/lib/typesense-client";
 import React from "react";
-import { CollectionAliasSchema } from "typesense/lib/Typesense/Aliases";
-import UpsertAlias from "./upsert-alias";
-import { DataTable } from "./data-table";
-import { columns } from "./columns";
-import { CollectionSchema } from "typesense/lib/Typesense/Collection";
-
-async function getData(): Promise<{
-  aliases: CollectionAliasSchema[];
-  collections: CollectionSchema[];
-}> {
-  const data = await typesenseClient.aliases().retrieve();
-  const collections = await typesenseClient.collections().retrieve();
-
-  return { aliases: data.aliases, collections };
-}
+import { columns } from "@/ui/dashboard/aliases/columns";
+import UpsertAlias from "@/ui/dashboard/upsert-alias";
+import { DataTable } from "@/ui/dashboard/aliases/data-table";
 
 export default async function AliasesPage() {
-  const data = await getData();
   return (
     <div className="flex flex-col gap-12">
       <div>
@@ -28,8 +14,8 @@ export default async function AliasesPage() {
           it&apos;s very similar to that.
         </p>
       </div>
-      <UpsertAlias collections={data.collections} />
-      <DataTable columns={columns} data={data.aliases} />
+      <UpsertAlias />
+      <DataTable columns={columns} />
     </div>
   );
 }

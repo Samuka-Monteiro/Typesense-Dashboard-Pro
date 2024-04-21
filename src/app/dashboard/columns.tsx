@@ -8,7 +8,7 @@ import {
   Copy,
   MoreHorizontal,
   Telescope,
-  Trash,
+  Trash2,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -117,7 +117,7 @@ export const columns: ColumnDef<CollectionSchema>[] = [
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="text-red-600">
-              <Trash className="mr-2 h-4 w-4" />
+              <Trash2 className="mr-2 h-4 w-4" />
               Delete
               <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
             </DropdownMenuItem>

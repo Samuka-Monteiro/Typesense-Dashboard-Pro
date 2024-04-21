@@ -9,7 +9,8 @@ async function getData(): Promise<CollectionSchema[]> {
 
   return collections;
 }
-export default async function DashboardPage() {
+
+export default async function Page() {
   const data = await getData();
 
   return (

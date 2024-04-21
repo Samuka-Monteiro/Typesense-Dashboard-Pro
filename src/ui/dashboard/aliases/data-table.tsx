@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import * as React from "react"
 import {
   ColumnDef,
-  SortingState,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
-  getSortedRowModel,
+  getFilteredRowModel,
   useReactTable,
-} from "@tanstack/react-table"
-
+  SortingState,
+  getSortedRowModel,
+} from "@tanstack/react-table";
 import {
   Table,
   TableBody,
@@ -17,29 +17,43 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
+import React from "react";
+import { TypesenseContext } from "@/context/typesense-context";
+import { useQuery } from "@tanstack/react-query";
+import { CollectionAliasSchema } from "typesense/lib/Typesense/Aliases";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
-  data,
-}: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([])
- 
+}: DataTableProps<CollectionAliasSchema, TValue>) {
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const { typesenseClient } = React.useContext(TypesenseContext);
+  const { data: aliases } = useQuery({
+    queryKey: ["aliases"],
+    queryFn: async () => await typesenseClient?.aliases().retrieve(),
+    enabled: typesenseClient ? true : false,
+  });
+
   const table = useReactTable({
-    data,
+    data: aliases?.aliases || [],
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters,
     },
-  })
+  });
 
   return (
     <div className="rounded-md border">
@@ -57,7 +71,7 @@ export function DataTable<TData, TValue>({
                           header.getContext()
                         )}
                   </TableHead>
-                )
+                );
               })}
             </TableRow>
           ))}
@@ -86,5 +100,5 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }
