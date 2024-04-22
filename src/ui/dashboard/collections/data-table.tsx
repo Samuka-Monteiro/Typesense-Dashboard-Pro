@@ -9,6 +9,7 @@ import {
   useReactTable,
   SortingState,
   getSortedRowModel,
+  getPaginationRowModel,
 } from "@tanstack/react-table";
 import { Input } from "@/components/ui/input";
 import {
@@ -20,6 +21,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Search } from "lucide-react";
+import { DataTablePagination } from "../data-table-pagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -43,26 +48,47 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
     state: {
       sorting,
       columnFilters,
+    },
+    initialState: {
+      pagination: {
+        pageSize: 5,
+      },
     },
   });
 
   return (
     <div>
       <div className="flex items-center py-4 justify-between">
-        <Input
-          placeholder="Serach"
+        <div className="relative">
+          <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+          <Input
+            type="search"
+            placeholder="Search collections..."
+            className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+          />
+        </div>
+
+        {/* <Input
+          placeholder="Search"
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
-        />
-        <p>test</p>
+        /> */}
+        <Button asChild>
+          <Link href="/dashboard/collections/new">Create collection</Link>
+        </Button>
       </div>
-      <div className="rounded-md border">
+      <div className="rounded-md border mb-4">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -112,6 +138,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+      <DataTablePagination table={table} />
     </div>
   );
 }

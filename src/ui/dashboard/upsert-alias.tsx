@@ -56,7 +56,7 @@ export default function UpsertAlias() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-0 bg-gray-100 rounded-md p-8 border"
+        className="space-y-0 bg-muted/40 rounded-md p-8 border"
       >
         <div className="flex w-full max-w-4xl items-center space-x-2">
           <FormField

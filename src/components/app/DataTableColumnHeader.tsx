@@ -35,7 +35,7 @@ export function DataTableColumnHeader<TData, TValue>({
     <Button
       variant="ghost"
       onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      className="font-bold"
+      className="font-bold p-0 hover:bg-transparent"
     >
       {title}
       <ArrowUpDown className="ml-2 h-4 w-4" />

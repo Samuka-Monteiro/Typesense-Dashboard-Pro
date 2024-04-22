@@ -5,6 +5,7 @@ import { DataTableColumnHeader } from "@/components/app/DataTableColumnHeader";
 import { CollectionAliasSchema } from "typesense/lib/Typesense/Aliases";
 import { Button } from "@/components/ui/button";
 import { DeleteDialog } from "../delete-dialog";
+import Link from "next/link";
 
 export const columns: ColumnDef<CollectionAliasSchema>[] = [
   {
@@ -22,7 +23,7 @@ export const columns: ColumnDef<CollectionAliasSchema>[] = [
       const collectionName = row.getValue("collection_name") as string;
 
       return (
-        <Button variant="link" asChild>
+        <Button variant="link" asChild className="p-0">
           <Link href={`/dashboard/collections/${collectionName}`}>
             {collectionName}
           </Link>
@@ -32,7 +33,7 @@ export const columns: ColumnDef<CollectionAliasSchema>[] = [
   },
   {
     id: "actions",
-    header: ({ column }) => <span className="font-bold">Action</span>,
+    header: () => <span className="font-bold">Action</span>,
     cell: ({ row }) => {
       const alias = row.original;
 

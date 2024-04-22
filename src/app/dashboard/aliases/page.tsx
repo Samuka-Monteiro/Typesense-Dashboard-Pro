@@ -5,8 +5,8 @@ import { DataTable } from "@/ui/dashboard/aliases/data-table";
 
 export default async function AliasesPage() {
   return (
-    <div className="flex flex-col gap-12">
-      <div>
+    <div className="flex flex-col gap-6">
+      <div className="pb-8">
         <h2 className="text-2xl font-bold pb-1">Aliases</h2>
         <p className="text-sm">
           An alias is a virtual collection name that points to a real
