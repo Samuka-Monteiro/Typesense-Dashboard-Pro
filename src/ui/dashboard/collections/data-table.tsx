@@ -75,17 +75,8 @@ export function DataTable<TData, TValue>({
             }
           />
         </div>
-
-        {/* <Input
-          placeholder="Search"
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        /> */}
         <Button asChild>
-          <Link href="/dashboard/collections/new">Create collection</Link>
+          <Link href="/collections/new">Create collection</Link>
         </Button>
       </div>
       <div className="rounded-md border mb-4">

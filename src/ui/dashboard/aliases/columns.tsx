@@ -3,9 +3,8 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/app/DataTableColumnHeader";
 import { CollectionAliasSchema } from "typesense/lib/Typesense/Aliases";
-import { Button } from "@/components/ui/button";
 import { DeleteDialog } from "../delete-dialog";
-import Link from "next/link";
+import CollectionHover from "../collection-hover";
 
 export const columns: ColumnDef<CollectionAliasSchema>[] = [
   {
@@ -22,13 +21,7 @@ export const columns: ColumnDef<CollectionAliasSchema>[] = [
     cell: ({ row }) => {
       const collectionName = row.getValue("collection_name") as string;
 
-      return (
-        <Button variant="link" asChild className="p-0">
-          <Link href={`/dashboard/collections/${collectionName}`}>
-            {collectionName}
-          </Link>
-        </Button>
-      );
+      return <CollectionHover name={collectionName} />;
     },
   },
   {
@@ -37,7 +30,13 @@ export const columns: ColumnDef<CollectionAliasSchema>[] = [
     cell: ({ row }) => {
       const alias = row.original;
 
-      return <DeleteDialog name={alias.name} queryKey={["aliases"]} entity="aliases" />;
+      return (
+        <DeleteDialog
+          name={alias.name}
+          queryKey={["aliases"]}
+          entity="aliases"
+        />
+      );
     },
   },
 ];

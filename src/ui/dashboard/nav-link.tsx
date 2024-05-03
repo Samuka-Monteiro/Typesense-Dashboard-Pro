@@ -3,7 +3,16 @@
 import Link from "next/link";
 import clsx from "clsx";
 import { Button } from "@/components/ui/button";
-import { Server, LibraryBig, Axis3d, Settings2, KeyRound } from "lucide-react";
+import {
+  Server,
+  LibraryBig,
+  Axis3d,
+  Settings2,
+  KeyRound,
+  Tags,
+  TextSearch,
+  Gem,
+} from "lucide-react";
 import CollectionActions from "@/ui/dashboard/collection-actions";
 import { usePathname } from "next/navigation";
 import {
@@ -56,7 +65,7 @@ export default function NavLinks() {
               }
             )}
           >
-            <Axis3d className="h-4 w-4" />
+            <Tags className="h-4 w-4" />
             Aliases
           </Link>
           <Link
@@ -67,11 +76,30 @@ export default function NavLinks() {
             Preset
           </Link>
           <Link
-            href="#"
-            className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
+            href="/dashboard/api-keys"
+            className={clsx(
+              "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
+              {
+                "bg-muted text-primary font-bold":
+                  pathname === "/dashboard/api-keys",
+              }
+            )}
           >
             <KeyRound className="h-4 w-4" />
             API keys
+          </Link>
+          <Link
+            href="/dashboard/serach-config"
+            className={clsx(
+              "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
+              {
+                "bg-muted text-primary font-bold":
+                  pathname === "/dashboard/serach-config",
+              }
+            )}
+          >
+            <Gem className="h-4 w-4" />
+            Search config
           </Link>
         </nav>
       </div>

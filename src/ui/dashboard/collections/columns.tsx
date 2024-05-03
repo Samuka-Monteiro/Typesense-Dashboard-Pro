@@ -2,10 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { DataTableColumnHeader } from "@/components/app/DataTableColumnHeader";
 import CollumnActions from "./collumn-actions";
+import CollectionHover from "../collection-hover";
 
 export const columns: ColumnDef<CollectionSchema>[] = [
   {
@@ -16,11 +15,7 @@ export const columns: ColumnDef<CollectionSchema>[] = [
     cell: ({ row }) => {
       const name = row.getValue("name") as string;
 
-      return (
-        <Button variant="link" asChild className="p-0">
-          <Link href={`/dashboard/collections/${name}`}>{name}</Link>
-        </Button>
-      );
+      return <CollectionHover name={name} />;
     },
   },
   {
