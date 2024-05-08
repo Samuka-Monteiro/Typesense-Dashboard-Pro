@@ -9,7 +9,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import useSearchCollectionQuery from "@/hooks/use-search-collection-query";
 import { Button } from "@/components/ui/button";
 import { Eraser, Search, X } from "lucide-react";

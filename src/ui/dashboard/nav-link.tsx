@@ -89,12 +89,12 @@ export default function NavLinks() {
             API keys
           </Link>
           <Link
-            href="/dashboard/serach-config"
+            href="/dashboard/search-config"
             className={clsx(
               "flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary",
               {
                 "bg-muted text-primary font-bold":
-                  pathname === "/dashboard/serach-config",
+                  pathname === "/dashboard/search-config",
               }
             )}
           >
