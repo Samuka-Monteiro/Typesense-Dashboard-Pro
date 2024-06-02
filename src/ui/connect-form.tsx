@@ -21,6 +21,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { useRouter } from 'next/navigation'
+import { useCookie } from "react-use";
 
 const formSchema = z.object({
   host: z.string(),
@@ -29,18 +30,20 @@ const formSchema = z.object({
   apikey: z.string(),
 });
 
+export type TypesenseConnection = z.infer<typeof formSchema>;
+
 export default function ConnectForm() {
+  const [_, updateCookie] = useCookie("typesense.connection");
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<TypesenseConnection>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       protocol: "http",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    localStorage.setItem("typesense", JSON.stringify(values));
+  function onSubmit(values: TypesenseConnection) {
+    updateCookie(JSON.stringify(values))
     router.push('/dashboard')
   }
   return (

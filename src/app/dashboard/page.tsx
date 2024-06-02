@@ -1,10 +1,11 @@
-import { typesenseClient } from "@/lib/typesense-client";
 import { CollectionSchema } from "typesense/lib/Typesense/Collection";
 import { columns } from "@/ui/dashboard/collections/columns";
 import { DataTable } from "@/ui/dashboard/collections/data-table";
+import TypesenseDataProvider from "@/lib/TypesenseDataProvider";
 
 async function getData(): Promise<CollectionSchema[]> {
-  const collections = await typesenseClient.collections().retrieve();
+  const dataProvider = new TypesenseDataProvider();
+  const collections = await dataProvider.getCollections()
 
   return collections;
 }

@@ -6,7 +6,8 @@ import TypesenseProvider from "@/context/typesense-context";
 
 export const metadata: Metadata = {
   title: "Typesense Dashboard Pro",
-  description: "A Typesense GUI for Pros",
+  description:
+    "Leverage the full power of Typesense with this professional dashboard.",
 };
 
 export default function RootLayout({
